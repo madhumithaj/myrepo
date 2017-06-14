@@ -1,40 +1,44 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "existingVNETName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the VNET to add a subnet to"
-      }
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworks_vnet1_name": {
+            "defaultValue": "vnet1",
+            "type": "String"
+        }
     },
-    "newSubnetName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the subnet to add"
-      }
-    },
-    "newSubnetAddressPrefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/24",
-      "metadata": {
-        "description": "Address space of the subnet to add"
-      }
-    }
-  },
-  "variables": {
-    "apiVersion": "2015-06-15"
-  },
-  "resources": [
-    {
-      "apiVersion": "[variables('apiVersion')]",
-      "type": "Microsoft.Network/virtualNetworks/subnets",
-      "name": "[concat(parameters('existingVNETName'), '/', parameters('newSubnetName'))]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "addressPrefix": "[parameters('newSubnetAddressPrefix')]"
-      }
-    }
-  ],
-  "outputs": {}
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Network/virtualNetworks/vnet1'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_vnet1_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "subn1",
+                        "properties": {
+                            "addressPrefix": "10.0.1.0/24"
+                        }
+                    },
+                    {
+                        "name": "sub2",
+                        "properties": {
+                            "addressPrefix": "10.0.20.0/24"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": []
+        }
+    ]
 }
