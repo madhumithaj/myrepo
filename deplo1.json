@@ -36,9 +36,9 @@
                         }
                     },
                      {
-                        "name": "sub2",
+                        "name": "sub3",
                         "properties": {
-                            "addressPrefix": "10.0.20.0/24"
+                            "addressPrefix": "10.0.40.0/24"
                         }
                     }
                 ],
