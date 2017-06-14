@@ -34,6 +34,12 @@
                         "properties": {
                             "addressPrefix": "10.0.20.0/24"
                         }
+                    },
+                     {
+                        "name": "sub2",
+                        "properties": {
+                            "addressPrefix": "10.0.20.0/24"
+                        }
                     }
                 ],
                 "virtualNetworkPeerings": []
