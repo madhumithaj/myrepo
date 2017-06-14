@@ -26,7 +26,7 @@
             "defaultValue": "stract",
             "type": "String"
         },
-        "storageAccounts_str1 _name": {
+        "storageAccounts_stract1 _name": {
             "defaultValue": "str1",
             "type": "String"
         }
@@ -221,14 +221,14 @@
             "dependsOn": []
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Storage/storageAccounts/str1'.",
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Storage/storageAccounts/stract1'.",
             "type": "Microsoft.Storage/storageAccounts",
             "sku": {
                 "name": "Premium_LRS",
                 "tier": "Premium"
             },
             "kind": "Storage",
-            "name": "[parameters('storageAccounts_str1 _name')]",
+            "name": "[parameters('storageAccounts_stract1 _name')]",
             "apiVersion": "2016-01-01",
             "location": "centralus",
             "tags": {},
