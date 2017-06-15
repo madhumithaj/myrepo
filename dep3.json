@@ -1,0 +1,351 @@
+{
+ 
+   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  
+  "contentVersion": "1.0.0.0",
+  
+  "parameters": {
+    
+    "networkInterfaces_vm763_name": {
+     
+       "defaultValue": "vm763",
+      
+      "type": "String"
+    
+    },
+  
+      "networkSecurityGroups_vm_nsg_name": {
+   
+         "defaultValue": "vm-nsg",
+      
+      "type": "String"
+    
+    },
+    
+    "publicIPAddresses_vm_ip_name": {
+      
+      "defaultValue": "vm-ip",
+     
+       "type": "String"
+   
+     },
+    
+    "virtualNetworks_vnet1_name": {
+         
+   "defaultValue": "vnet1",
+     
+       "type": "String"
+     
+   },
+     
+   "storageAccounts_srtact_name": {
+  
+          "defaultValue": "stract",
+         
+   "type": "String"
+     
+   },
+      
+  "storageAccounts_stract1_name": {
+        
+    "defaultValue": "stract",
+         
+   "type": "String"
+  
+     }
+    },
+  
+  "variables": {},
+ 
+   "resources": [
+      
+  {
+      
+      "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Network/networkInterfaces/vm763'.",
+     
+       "type": "Microsoft.Network/networkInterfaces",
+          
+  "name": "[parameters('networkInterfaces_vm763_name')]",
+  
+          "apiVersion": "2017-03-01",
+    
+      "location": "centralus",
+     
+       "scale": null,
+      
+      "properties": {
+           
+     "ipConfigurations": [
+          
+          {
+                     
+   "name": "ipconfig1",
+           
+             "properties": {
+        
+                    "privateIPAddress": "10.0.1.4",
+        
+                    "privateIPAllocationMethod": "Dynamic",
+      
+                      "publicIPAddress": {
+                      
+          "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vm_ip_name'))]"
+          
+                  },
+                       
+     "subnet": {
+                     
+           "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name')), '/subnets/subn1')]"
+                   
+         }
+               
+         }
+                   
+ }
+               
+ ],
+              
+  "dnsSettings": {
+       
+             "dnsServers": []
+      
+          },
+           
+     "enableIPForwarding": false,
+         
+       "networkSecurityGroup": {
+         
+           "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+         
+       }
+         
+   },
+           
+ "dependsOn": [
+      
+          "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vm_ip_name'))]",
+           
+     "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+        
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+     
+       ]
+      
+  },
+    
+    {
+           
+ "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Network/networkSecurityGroups/vm-nsg'.",
+   
+         "type": "Microsoft.Network/networkSecurityGroups",
+          
+  "name": "[parameters('networkSecurityGroups_vm_nsg_name')]",
+      
+      "apiVersion": "2017-03-01",
+      
+      "location": "centralus",
+         
+   "scale": null,
+        
+    "properties": {
+            
+    "securityRules": [
+           
+         {
+                      
+  "name": "default-allow-rdp",
+           
+             "properties": {
+                      
+      "protocol": "TCP",
+                      
+      "sourcePortRange": "*",
+                      
+      "destinationPortRange": "3389",
+      
+                      "sourceAddressPrefix": "*",
+            
+                "destinationAddressPrefix": "*",
+              
+              "access": "Allow",
+                     
+       "priority": 1000,
+           
+                 "direction": "Inbound"
+    
+                    }
+                
+    }
+            
+    ]
+        
+    },
+          
+  "dependsOn": []
+   
+     },
+       
+ {
+            
+"comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Network/publicIPAddresses/vm-ip'.",
+   
+         "type": "Microsoft.Network/publicIPAddresses",
+         
+   "name": "[parameters('publicIPAddresses_vm_ip_name')]",
+    
+        "apiVersion": "2017-03-01",
+   
+         "location": "centralus",
+      
+      "scale": null,
+    
+        "properties": {
+   
+             "publicIPAllocationMethod": "Dynamic",
+        
+        "idleTimeoutInMinutes": 4
+         
+   },
+            "dependsOn": []
+   
+     },
+  
+      {
+       
+     "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Network/virtualNetworks/vnet1'.",
+   
+         "type": "Microsoft.Network/virtualNetworks",
+   
+         "name": "[parameters('virtualNetworks_vnet1_name')]",
+  
+          "apiVersion": "2017-03-01",
+   
+         "location": "centralus",
+       
+     "scale": null,
+          
+  "properties": {
+        
+        "addressSpace": {
+   
+                 "addressPrefixes": [
+      
+                  "10.0.0.0/16"
+                 
+   ]
+            
+    },
+       
+         "subnets": [
+             
+       {
+                   
+     "name": "subn1",
+            
+            "properties": {
+       
+                     "addressPrefix": "10.0.1.0/24"
+              
+          }
+                  
+  },
+              
+      {
+              
+          "name": "sub2",
+     
+                  "properties": {
+     
+                       "addressPrefix": "10.0.20.0/24"
+            
+            }
+          
+          },
+              
+      {
+                       
+ "name": "sub3",
+     
+                   "properties": {
+      
+                      "addressPrefix": "10.0.40.0/24"
+           
+             }
+                   
+ }
+              
+  ],
+         
+       "virtualNetworkPeerings": []
+    
+        },
+        
+    "dependsOn": []
+    
+    },
+      
+  {
+         
+   "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Storage/storageAccounts/stract'.",
+   
+         "type": "Microsoft.Storage/storageAccounts",
+      
+      "sku": {
+              
+  "name": "Standard_LRS",
+       
+         "tier": "Standard"
+   
+         },
+   
+         "kind": "Storage",
+   
+         "name": "[parameters('storageAccounts_stract_name')]",
+      
+      "apiVersion": "2016-01-01",
+    
+        "location": "centralus",
+        
+    "tags": {},
+  
+          "scale": null,
+      
+     "properties": {},
+    
+        "dependsOn": []
+      
+  },
+       
+ {
+        
+    "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsg/providers/Microsoft.Storage/storageAccounts/stract1'.",
+   
+         "type": "Microsoft.Storage/storageAccounts",
+     
+       "sku": {
+          
+      "name": "Premium_LRS",
+              
+  "tier": "Premium"
+        
+    },
+    
+        "kind": "Storage",
+     
+      "name": "[parameters('storageAccounts_stract1_name')]",
+   
+         "apiVersion": "2016-01-01",
+ 
+           "location": "centralus",
+    
+        "tags": {},
+      
+      "scale": null,
+       
+     "properties": {},
+      
+      "dependsOn": []
+     
+   }
+    ]
+}
