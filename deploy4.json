@@ -91,13 +91,18 @@
                         "storageUri": "[concat('https', '://', parameters('storageAccounts_resgrpdiag821_name'), '.blob.core.windows.net', '/')]"
                     }
                 }
+                 "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https', '://', parameters('storageAccounts_res1312_name'), '.blob.core.windows.net', '/')]"
+                    }
+                }
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_resgrpdisks132_name'))]",
                 "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ubuntuvm567_name'))]",
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_resgrpdiag821_name'))]"
-                "[resourceId('Microsoft.Storage/storageAccounts',
- parameters('storageAccounts_ res1312_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts',parameters('storageAccounts_res1312_name'))]"
 
             ]
         },
