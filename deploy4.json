@@ -1,0 +1,267 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_ubuntuvm_name": {
+            "defaultValue": "ubuntuvm",
+            "type": "String"
+        },
+        "networkInterfaces_ubuntuvm567_name": {
+            "defaultValue": "ubuntuvm567",
+            "type": "String"
+        },
+        "networkSecurityGroups_ubuntuvm_nsg_name": {
+            "defaultValue": "ubuntuvm-nsg",
+            "type": "String"
+        },
+        "publicIPAddresses_ubuntuvm_ip_name": {
+            "defaultValue": "ubuntuvm-ip",
+            "type": "String"
+        },
+        "virtualNetworks_resgrp_vnet_name": {
+            "defaultValue": "resgrp-vnet",
+            "type": "String"
+        },
+        "storageAccounts_res1234_name": {
+            "defaultValue": "res1234",
+            "type": "String"
+        },
+        "storageAccounts_resgrpdiag821_name": {
+            "defaultValue": "resgrpdiag821",
+            "type": "String"
+        },
+        "storageAccounts_resgrpdisks132_name": {
+            "defaultValue": "resgrpdisks132",
+            "type": "String"
+        },
+"storageAccounts_res1312_name": {
+            "defaultValue": " res1312",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Compute/virtualMachines/ubuntuvm'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_ubuntuvm_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS2_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "12.04.5-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[parameters('virtualMachines_ubuntuvm_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_resgrpdisks132_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_ubuntuvm_name'),'20170621125220.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_ubuntuvm_name')]",
+                    "adminUsername": "madhumitha",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false
+                    },
+                    "secrets": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ubuntuvm567_name'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https', '://', parameters('storageAccounts_resgrpdiag821_name'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_resgrpdisks132_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_ubuntuvm567_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_resgrpdiag821_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts',
+ parameters('storageAccounts_ res1312_name'))]"
+
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Network/networkInterfaces/ubuntuvm567'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_ubuntuvm567_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.0.1.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ubuntuvm_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_resgrp_vnet_name')), '/subnets/subnet1')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_ubuntuvm_nsg_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ubuntuvm_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_resgrp_vnet_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_ubuntuvm_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Network/networkSecurityGroups/ubuntuvm-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_ubuntuvm_nsg_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "default-allow-ssh",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "ubuntunsg",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Network/publicIPAddresses/ubuntuvm-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ubuntuvm_ip_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Network/virtualNetworks/resgrp-vnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_resgrp_vnet_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "subnet1",
+                        "properties": {
+                            "addressPrefix": "10.0.1.0/24"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Storage/storageAccounts/res1312.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_ res1312_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "centralus",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Storage/storageAccounts/resgrpdiag821'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_resgrpdiag821_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "centralus",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/resgrp/providers/Microsoft.Storage/storageAccounts/resgrpdisks132'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_resgrpdisks132_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "centralus",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        }
+    ]
+}
