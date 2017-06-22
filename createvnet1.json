@@ -27,7 +27,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAddress": "10.0.1.4",
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet345_name')), '/subnets/subnet1vn345')]"
                             }
