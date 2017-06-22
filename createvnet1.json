@@ -1,0 +1,103 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroups_vnet345nsg_name": {
+            "defaultValue": "vnet345nsg",
+            "type": "String"
+        },
+
+        "virtualNetworks_vnet345_name": {
+            "defaultValue": "vnet345",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+                {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsgp/providers/Microsoft.Network/networkInterfaces/nicvnet345'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_nicvnet345_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.0.1.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet345_name')), '/subnets/subnet1vn345')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vnet345nsg_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet345_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vnet345nsg_name'))]"
+            ]
+        },
+
+                {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsgp/providers/Microsoft.Network/networkSecurityGroups/vnet345nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_vnet345nsg_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "securityRules": []
+            },
+            "dependsOn": []
+        },
+
+        {
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsgp/providers/Microsoft.Network/virtualNetworks/vnet345'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_vnet345_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "subnet1vn345",
+                        "properties": {
+                            "addressPrefix": "10.0.1.0/24"
+                        }
+                    },
+                    {
+                        "name": "subnet2vn345",
+                        "properties": {
+                            "addressPrefix": "10.0.10.0/24"
+                        }
+                    },
+                      {
+                        "name": "GatewaySubnet",
+                        "properties": {
+                            "addressPrefix": "10.0.11.0/24"
+                        }
+                    }
+
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": []
+        }
+    ]
+}
