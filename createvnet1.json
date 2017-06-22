@@ -15,7 +15,7 @@
     "variables": {},
     "resources": [
                 {
-            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsgp/providers/Microsoft.Network/networkInterfaces/nicvnet345'.",
+            "comments": "Generalized from resource: '/subscriptions/08ff969f-b7e9-4653-9108-7edb20d99982/resourceGroups/rsgp/providers/Microsoft.Network/networkInterfaces/vnet345nic'.",
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('networkInterfaces_nicvnet345_name')]",
             "apiVersion": "2017-03-01",
