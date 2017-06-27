@@ -1,0 +1,38 @@
+   {
+ "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworks_virnet1_name": {
+            "defaultValue": "virnet1",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/03bdeb37-8510-4725-abed-a461de1e925d/resourceGroups/resgrp/providers/Microsoft.Network/virtualNetworks/virnet1'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_virnet1_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "centralus",
+            "scale": null,
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "subnet1",
+                        "properties": {
+                            "addressPrefix": "10.0.10.0/24"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": []
+        }
+    ]
+}
