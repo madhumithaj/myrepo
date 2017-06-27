@@ -28,6 +28,12 @@
                         "properties": {
                             "addressPrefix": "10.0.10.0/24"
                         }
+                    },
+                    {
+                        "name": "subnet2",
+                        "properties": {
+                            "addressPrefix": "10.0.11.0/24"
+                        }
                     }
                 ],
                 "virtualNetworkPeerings": []
